@@ -10,8 +10,8 @@ public class Driver {
     private final static String MOTION_BLUR = "motion_blur";
 
     public static void main(String[] args) {
-        String fileName = "TestFiles/cs_logo.ppm";
-        String action = "invert".toLowerCase();
+        String fileName = "TestFiles/audio.ppm";
+        String action = "grayscale".toLowerCase();
         ImageProcessor imageProcessor = new ImageProcessor(fileName);
         switch (action) {
             case INVERT:
