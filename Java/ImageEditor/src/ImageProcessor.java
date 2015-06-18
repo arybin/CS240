@@ -11,14 +11,13 @@ import java.util.stream.Stream;
  * Created by andrei on 6/13/15.
  */
 public class ImageProcessor {
-    private static final Pattern comment = Pattern.compile("#[^\\n]*\\n");
-    private static final Pattern number = Pattern.compile(" [01](\\d\\d?)? | 2[0-4]\\d | 25[0-5] | [3-9]\\d?");
     private static final int ROWS_TO_IGNORE = 4;
     private static final int WIDTH_AND_HEIGHT = 2;
+    private static final Pattern comment = Pattern.compile("#[^\\n]*\\n");
+    private static final Pattern number = Pattern.compile(" [01](\\d\\d?)? | 2[0-4]\\d | 25[0-5] | [3-9]\\d?");
 
     private String filePath;
     private String fileName;
-    private String content;
     private int width;
     private int height;
     private Pixel[][] originalImage;
@@ -35,14 +34,13 @@ public class ImageProcessor {
         this.fileName = Pattern.compile("/")
                 .splitAsStream(filePath)
                 .filter(f -> f.contains(".ppm"))
-                .findAny()
+                .findFirst()
                 .get();
         getContent();
     }
 
     private void getContent() {
         try {
-            content = new String(Files.readAllBytes(Paths.get(this.filePath)));
             Stream<String> lines = Files.lines(Paths.get(this.filePath))
                     .parallel();
             String[] actualLines = lines

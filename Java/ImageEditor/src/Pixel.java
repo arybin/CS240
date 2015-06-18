@@ -4,6 +4,7 @@
 public class Pixel {
     private final static int MAX_VALUE = 255;
     private final static int TOTAL_COLORS = 3;
+
     private int RED;
     private int GREEN;
     private int BLUE;
