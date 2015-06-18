@@ -10,8 +10,9 @@ public class Driver {
     private final static String MOTION_BLUR = "motion_blur";
 
     public static void main(String[] args) {
-        String fileName = "TestFiles/slctemple.ppm";
+        String fileName = "TestFiles/cs_logo.ppm";
         String action = "emboss".toLowerCase();
+        int motionValue = 20;
         ImageProcessor imageProcessor = new ImageProcessor(fileName);
         switch (action) {
             case INVERT:
@@ -24,7 +25,7 @@ public class Driver {
                 imageProcessor.emboss();
                 break;
             case MOTION_BLUR:
-                imageProcessor.motionBlur();
+                imageProcessor.motionBlur(motionValue);
                 break;
             default:
                 System.out.println("case doesn't exist");

@@ -16,6 +16,7 @@ public class Pixel {
     private Pixel[][] changedImage;
     private int x;
     private int y;
+    private int motionValue;
 
     public Pixel(final int red,
                  final int green,
@@ -23,9 +24,7 @@ public class Pixel {
         this.RED = red;
         this.sRed = String.valueOf(red);
         this.GREEN = green;
-        this.sGreen = String.valueOf(green);
-        this.BLUE = blue;
-        this.sBlue = String.valueOf(blue);
+        setStringValues();
     }
 
     public Pixel(final String red,
@@ -103,13 +102,6 @@ public class Pixel {
             int greenDiff = Math.abs(this.GREEN - this.originalImage[y - 1][x - 1].getGreen());
             int blueDiff = Math.abs(this.BLUE - this.originalImage[y - 1][x - 1].getBlue());
             int maxDifference = Math.max(redDiff, Math.max(greenDiff, blueDiff));
-//            if(redDiff >= greenDiff && redDiff >= greenDiff) {
-//                maxDifference = redDiff;
-//            } else if (greenDiff >= blueDiff) {
-//                maxDifference = greenDiff;
-//            } else {
-//                maxDifference = blueDiff;
-//            }
             embossValue = maxDifference;
         }
 
@@ -120,8 +112,39 @@ public class Pixel {
         } else if (embossValue > 255) {
             embossValue = 255;
         }
-       Pixel p = new Pixel(embossValue,embossValue,embossValue);
+        Pixel p = new Pixel(embossValue, embossValue, embossValue);
         this.changedImage[y][x] = p;
+
+    }
+
+    public void setMotionValue(final int motionValue) {
+        this.motionValue = motionValue;
+    }
+
+    public void motionBlur() {
+        Pixel[] row = this.originalImage[y];
+        int horizontalPosition = motionValue > row.length ? row.length - x  : motionValue - 1;
+        //this is just to make sure the above statement is working properly :)
+        if(motionValue > row.length) {
+            horizontalPosition = row.length - x;
+        } else {
+            horizontalPosition = motionValue - 1;
+        }
+        int i = x;
+        int red  = 0;
+        int green = 0;
+        int blue = 0;
+        while(i < row.length) {
+            red += row[i].getRed();
+            green += row[i].getGreen();
+            blue += row[i].getBlue();
+            i++;
+        }
+        //this should be the number of cells to check, thus making values averages
+        red /= horizontalPosition;
+        green /= horizontalPosition;
+        blue /= horizontalPosition;
+        Pixel p = new Pixel(red, green, blue);
 
     }
 

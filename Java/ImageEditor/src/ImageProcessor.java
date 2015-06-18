@@ -26,8 +26,9 @@ public class ImageProcessor {
 
     //man, Java 8 is cool
     private Consumer<Pixel> invertAction = p -> p.invert();
-    private Consumer<Pixel> grayScaleAction = p->p.grayScale();
-    private Consumer<Pixel> embossAction = p->p.emboss();
+    private Consumer<Pixel> grayScaleAction = p -> p.grayScale();
+    private Consumer<Pixel> embossAction = p -> p.emboss();
+    private Consumer<Pixel> motionBlurAction = p -> p.motionBlur();
 
     public ImageProcessor(String filePath) {
         this.filePath = filePath;
@@ -120,7 +121,7 @@ public class ImageProcessor {
     }
 
     public void invert() {
-        String invertFileName = String.join("_","TestFiles/invert",this.fileName);
+        String invertFileName = String.join("_", "TestFiles/invert", this.fileName);
         List<String> newContent = new ArrayList<>();
         applyAction(invertAction, newContent);
         writeNewContent(invertFileName, newContent);
@@ -137,21 +138,29 @@ public class ImageProcessor {
     }
 
     public void grayScale() {
-        String invertFileName = String.join("_","TestFiles/grayscale",this.fileName);
+        String invertFileName = String.join("_", "TestFiles/grayscale", this.fileName);
         List<String> newContent = new ArrayList<>();
         applyAction(this.grayScaleAction, newContent);
         writeNewContent(invertFileName, newContent);
     }
 
     public void emboss() {
-        String invertFileName = String.join("_","TestFiles/emboss",this.fileName);
+        String invertFileName = String.join("_", "TestFiles/emboss", this.fileName);
         List<String> newContent = new ArrayList<>();
         applyAction(this.embossAction, newContent);
         writeNewContent(invertFileName, newContent);
 
     }
 
-    public void motionBlur() {
-
+    public void motionBlur(int motionValue) {
+        for(int i = 0; i < originalImage.length; i++) {
+            for(int j = 0; j < originalImage[i].length; j++) {
+                originalImage[i][j].setMotionValue(motionValue);
+            }
+        }
+        String invertFileName = String.join("_", "TestFiles/motionblur", this.fileName);
+        List<String> newContent = new ArrayList<>();
+        applyAction(this.motionBlurAction, newContent);
+        writeNewContent(invertFileName, newContent);
     }
 }
