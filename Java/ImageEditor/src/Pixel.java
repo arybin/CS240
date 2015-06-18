@@ -12,11 +12,30 @@ public class Pixel {
     private String sBlue;
     private boolean isEDGE;
     //this is just to save the position of self and get the reference to the neighbors
-    private Pixel[][] image;
+    private Pixel[][] originalImage;
+    private Pixel[][] changedImage;
     private int x;
     private int y;
 
-    public Pixel(final String red, final String green, final String blue, final boolean isEdge, Pixel[][] image) {
+    public Pixel(final int red,
+                 final int green,
+                 final int blue) {
+        this.RED = red;
+        this.sRed = String.valueOf(red);
+        this.GREEN = green;
+        this.sGreen = String.valueOf(green);
+        this.BLUE = blue;
+        this.sBlue = String.valueOf(blue);
+    }
+
+    public Pixel(final String red,
+                 final String green,
+                 final String blue,
+                 final boolean isEdge,
+                 final Pixel[][] originalImage,
+                 final Pixel[][] changedImage,
+                 final int x,
+                 final int y) {
         this.sRed = red;
         this.RED = Integer.valueOf(red);
         this.sGreen = green;
@@ -24,7 +43,10 @@ public class Pixel {
         this.sBlue = blue;
         this.BLUE = Integer.valueOf(blue);
         this.isEDGE = isEdge;
-        this.image = image;
+        this.originalImage = originalImage;
+        this.changedImage = changedImage;
+        this.x = x;
+        this.y = y;
     }
 
     public int getRed() {
@@ -48,10 +70,12 @@ public class Pixel {
     }
 
     public void invert() {
-        this.RED = Math.abs(this.RED - MAX_VALUE);
-        this.GREEN = Math.abs(this.GREEN - MAX_VALUE);
-        this.BLUE = Math.abs(this.BLUE - MAX_VALUE);
+        int red = Math.abs(this.RED - MAX_VALUE);
+        int green = Math.abs(this.GREEN - MAX_VALUE);
+        int blue = Math.abs(this.BLUE - MAX_VALUE);
         setStringValues();
+        Pixel p = new Pixel(red, green, blue);
+        this.changedImage[y][x] = p;
     }
 
     private void setStringValues() {
@@ -62,10 +86,43 @@ public class Pixel {
 
     public void grayScale() {
         int average = (this.RED + this.GREEN + this.BLUE) / TOTAL_COLORS;
-        this.RED = average;
-        this.GREEN = average;
-        this.BLUE = average;
+        int red = average;
+        int green = average;
+        int blue = average;
         setStringValues();
+        Pixel p = new Pixel(red, green, blue);
+        this.changedImage[y][x] = p;
+    }
+
+    public void emboss() {
+        int embossValue = 0;
+        if ((x - 1) < 0 || (y - 1) < 0) {
+            embossValue = 128;
+        } else {
+            int redDiff = Math.abs(this.RED - this.originalImage[y - 1][x - 1].getRed());
+            int greenDiff = Math.abs(this.GREEN - this.originalImage[y - 1][x - 1].getGreen());
+            int blueDiff = Math.abs(this.BLUE - this.originalImage[y - 1][x - 1].getBlue());
+            int maxDifference = Math.max(redDiff, Math.max(greenDiff, blueDiff));
+//            if(redDiff >= greenDiff && redDiff >= greenDiff) {
+//                maxDifference = redDiff;
+//            } else if (greenDiff >= blueDiff) {
+//                maxDifference = greenDiff;
+//            } else {
+//                maxDifference = blueDiff;
+//            }
+            embossValue = maxDifference;
+        }
+
+        embossValue += 128;
+
+        if (embossValue < 0) {
+            embossValue = 0;
+        } else if (embossValue > 255) {
+            embossValue = 255;
+        }
+       Pixel p = new Pixel(embossValue,embossValue,embossValue);
+        this.changedImage[y][x] = p;
+
     }
 
     public String getsRed() {

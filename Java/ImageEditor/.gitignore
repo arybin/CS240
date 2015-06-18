@@ -3,3 +3,7 @@ out/*
 TestFiles/slctemple.ppm
 TestFiles/invert_audio.ppm
 TestFiles/invert_slctemple.ppm
+TestFiles/emboss_audio.ppm
+TestFiles/emboss_cs_logo.ppm
+TestFiles/emboss_slctemple.ppm
+TestFiles/grayscale_slctemple.ppm

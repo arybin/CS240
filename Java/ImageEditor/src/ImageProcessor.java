@@ -21,11 +21,13 @@ public class ImageProcessor {
     private String content;
     private int width;
     private int height;
-    private Pixel[][] image;
+    private Pixel[][] originalImage;
+    private Pixel[][] changedImage;
 
     //man, Java 8 is cool
     private Consumer<Pixel> invertAction = p -> p.invert();
     private Consumer<Pixel> grayScaleAction = p->p.grayScale();
+    private Consumer<Pixel> embossAction = p->p.emboss();
 
     public ImageProcessor(String filePath) {
         this.filePath = filePath;
@@ -58,7 +60,8 @@ public class ImageProcessor {
     }
 
     private void populateImageMatrix(String[] imageData) {
-        image = new Pixel[height][width];
+        originalImage = new Pixel[height][width];
+        changedImage = new Pixel[height][width];
         int horizontalPosition = 0;
         int verticalPosition = 0;
         int i = 0;
@@ -74,8 +77,15 @@ public class ImageProcessor {
                             verticalPosition == 0 ||
                             horizontalPosition + 1 == width ||
                             verticalPosition + 1 == height;
-            Pixel p = new Pixel(red, green, blue, isEdge, image);
-            image[verticalPosition][horizontalPosition] = p;
+            Pixel p = new Pixel(red,
+                    green,
+                    blue,
+                    isEdge,
+                    originalImage,
+                    changedImage,
+                    horizontalPosition,
+                    verticalPosition);
+            originalImage[verticalPosition][horizontalPosition] = p;
             horizontalPosition++;
             //if horizontal is at the end of the line, move to the next vertical position, reset the value
             if ((horizontalPosition % width) == 0) {
@@ -93,13 +103,14 @@ public class ImageProcessor {
         newContent.add("P3\n");
         newContent.add(this.width + " " + this.height + "\n");
         newContent.add("255\n");
-        for (int i = 0; i < image.length; i++) {
-            for (int j = 0; j < image[i].length; j++) {
-                Pixel p = image[i][j];
+        for (int i = 0; i < originalImage.length; i++) {
+            for (int j = 0; j < originalImage[i].length; j++) {
+                Pixel p = originalImage[i][j];
                 action.accept(p);
+                p = changedImage[i][j];
                 newContent.add(p.getsRed() + "\n");
                 newContent.add(p.getGreen() + "\n");
-                if ((i + 1) != image.length) {
+                if ((i + 1) != originalImage.length) {
                     newContent.add(p.getBlue() + "\n");
                 } else {
                     newContent.add(p.getsBlue());
@@ -133,6 +144,10 @@ public class ImageProcessor {
     }
 
     public void emboss() {
+        String invertFileName = String.join("_","TestFiles/emboss",this.fileName);
+        List<String> newContent = new ArrayList<>();
+        applyAction(this.embossAction, newContent);
+        writeNewContent(invertFileName, newContent);
 
     }
 
