@@ -7,3 +7,6 @@ TestFiles/emboss_audio.ppm
 TestFiles/emboss_cs_logo.ppm
 TestFiles/emboss_slctemple.ppm
 TestFiles/grayscale_slctemple.ppm
+TestFiles/motionblur_cs_logo.ppm
+TestFiles/motionblur_slctemple.ppm
+TestFiles/motionblur_audio.ppm

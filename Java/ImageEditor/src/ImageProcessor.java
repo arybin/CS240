@@ -22,6 +22,7 @@ public class ImageProcessor {
     private int height;
     private Pixel[][] originalImage;
     private Pixel[][] changedImage;
+    private int motionValue;
 
     //man, Java 8 is cool
     private Consumer<Pixel> invertAction = p -> p.invert();
@@ -31,15 +32,15 @@ public class ImageProcessor {
 
     public ImageProcessor(String filePath) {
         this.filePath = filePath;
+        this.motionValue = 0;
         this.fileName = Pattern.compile("/")
                 .splitAsStream(filePath)
                 .filter(f -> f.contains(".ppm"))
                 .findFirst()
                 .get();
-        getContent();
     }
 
-    private void getContent() {
+    public void processContent() {
         try {
             Stream<String> lines = Files.lines(Paths.get(this.filePath))
                     .parallel();
@@ -84,6 +85,7 @@ public class ImageProcessor {
                     changedImage,
                     horizontalPosition,
                     verticalPosition);
+            p.setMotionValue(motionValue);
             originalImage[verticalPosition][horizontalPosition] = p;
             horizontalPosition++;
             //if horizontal is at the end of the line, move to the next vertical position, reset the value
@@ -150,12 +152,11 @@ public class ImageProcessor {
 
     }
 
-    public void motionBlur(int motionValue) {
-        for(int i = 0; i < originalImage.length; i++) {
-            for(int j = 0; j < originalImage[i].length; j++) {
-                originalImage[i][j].setMotionValue(motionValue);
-            }
-        }
+    public void setMotionValue(int motionValue) {
+        this.motionValue = motionValue;
+    }
+
+    public void motionBlur() {
         String invertFileName = String.join("_", "TestFiles/motionblur", this.fileName);
         List<String> newContent = new ArrayList<>();
         applyAction(this.motionBlurAction, newContent);

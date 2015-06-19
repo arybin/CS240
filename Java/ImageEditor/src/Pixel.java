@@ -124,28 +124,25 @@ public class Pixel {
 
     public void motionBlur() {
         Pixel[] row = this.originalImage[y];
-        int horizontalPosition = motionValue > row.length ? row.length - x  : motionValue - 1;
-        //this is just to make sure the above statement is working properly :)
-        if(motionValue > row.length) {
-            horizontalPosition = row.length - x;
-        } else {
-            horizontalPosition = motionValue - 1;
-        }
-        int i = x;
+        int blurValue = motionValue;
+        //how far are we moving in the row
         int red  = 0;
         int green = 0;
         int blue = 0;
-        while(i < row.length) {
+        //this should be the number of cells to check, thus making values averages
+        if(blurValue + x >= row.length) {
+            blurValue = row.length - x;
+        }
+        for(int i = x; i < blurValue + x - 1; i++) {
             red += row[i].getRed();
             green += row[i].getGreen();
             blue += row[i].getBlue();
-            i++;
         }
-        //this should be the number of cells to check, thus making values averages
-        red /= horizontalPosition;
-        green /= horizontalPosition;
-        blue /= horizontalPosition;
+        red /= blurValue;
+        green /= blurValue;
+        blue /= blurValue;
         Pixel p = new Pixel(red, green, blue);
+        changedImage[y][x] = p;
 
     }
 
