@@ -13,22 +13,42 @@
 class Pixel
 {
 private:
-    int x;
-    int y;
-    Pixel[][] originalImage;
-    Pixel[][] modifiedImage;
-    int red;
-    int green;
-    int blue;
-    string sRed;
-    string sBlue;
-    string sGreen;
-    bool isEdge;
-    int motionValue;
+    int _x;
+    int _y;
+    Pixel * _originalImage;
+    Pixel * _modifiedImage;
+    int _red;
+    int _green;
+    int _blue;
+    std::string _sRed;
+    std::string _sBlue;
+    std::string _sGreen;
+    bool _isEdge;
+    int _motionValue;
+    void setStringValues();
     
 public:
     Pixel(int red, int green, int blue);
-    
+    Pixel(std::string red,
+          std::string green,
+          std::string blue,
+          bool isEdge,
+          Pixel * originalImage,
+          Pixel * modifiedImage,
+          int x,
+          int y
+          );
+    void setMotionValue(int motionValue);
+    int getRed();
+    int getGreen();
+    int getBlue();
+    void invert();
+    void grayscale();
+    void emboss();
+    void motionblur();
+    std::string getSRed();
+    std::string getSGreen();
+    std::string getSBlue();
     
 };
 

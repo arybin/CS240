@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		75B35E5A1B35831500B15FF6 /* driver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 75B35E591B35831500B15FF6 /* driver.cpp */; };
+		75B35E621B35861E00B15FF6 /* Pixel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 75B35E611B35861E00B15FF6 /* Pixel.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,6 +27,7 @@
 		75B35E561B35831500B15FF6 /* ImageEditor */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ImageEditor; sourceTree = BUILT_PRODUCTS_DIR; };
 		75B35E591B35831500B15FF6 /* driver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = driver.cpp; sourceTree = "<group>"; };
 		75B35E601B35835800B15FF6 /* Pixel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pixel.h; sourceTree = "<group>"; };
+		75B35E611B35861E00B15FF6 /* Pixel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pixel.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			children = (
 				75B35E591B35831500B15FF6 /* driver.cpp */,
 				75B35E601B35835800B15FF6 /* Pixel.h */,
+				75B35E611B35861E00B15FF6 /* Pixel.cpp */,
 			);
 			path = ImageEditor;
 			sourceTree = "<group>";
@@ -120,6 +123,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75B35E621B35861E00B15FF6 /* Pixel.cpp in Sources */,
 				75B35E5A1B35831500B15FF6 /* driver.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
