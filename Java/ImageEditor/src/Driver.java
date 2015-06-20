@@ -10,7 +10,7 @@ public class Driver {
     private final static String MOTION_BLUR = "motion_blur";
 
     public static void main(String[] args) {
-        String fileName = "TestFiles/audio.ppm";
+        String fileName = "TestFiles/slctemple.ppm";
         String action = "motion_blur".toLowerCase();
         int motionValue = 20;
         ImageProcessor imageProcessor = new ImageProcessor(fileName);

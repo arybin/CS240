@@ -23,8 +23,8 @@ public class Pixel {
                  final int green,
                  final int blue) {
         this.RED = red;
-        this.sRed = String.valueOf(red);
         this.GREEN = green;
+        this.BLUE = blue;
         setStringValues();
     }
 
