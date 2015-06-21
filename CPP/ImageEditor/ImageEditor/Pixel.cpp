@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Andrei Rybin. All rights reserved.
 //
 
-#include <stdio.h>
 #include "Pixel.h"
 
 Pixel::Pixel(int red, int green, int blue)
@@ -20,8 +19,8 @@ Pixel::Pixel(std::string red,
              std::string green,
              std::string blue,
              bool isEdge,
-             Pixel * originalImage,
-             Pixel * modifiedImage,
+             Pixel ** originalImage,
+             Pixel ** modifiedImage,
              int x,
              int y
              )
@@ -42,6 +41,13 @@ Pixel::Pixel(std::string red,
 void Pixel::setMotionValue(int motionValue)
 {
     _motionValue = motionValue;
+}
+
+void Pixel::setStringValues()
+{
+    _sRed = std::to_string(_red);
+    _sGreen = std::to_string(_green);
+    _sBlue = std::to_string(_blue);
 }
 
 int Pixel::getRed()
@@ -76,12 +82,19 @@ std::string Pixel::getSBlue()
 
 void Pixel::invert()
 {
+    int red = std::abs((double)_red - (double)MAX_VALUE);
+    int green = std::abs((double)_green - (double)MAX_VALUE);
+    int blue = std::abs((double)_blue - (double)MAX_VALUE);
+    Pixel p(red,green,blue);// = new Pixel(red,green,blue);
+    _originalImage[_y][_x] = p;
     
 }
 
 void Pixel::grayscale()
 {
-    
+    int average = (_red + _green + _blue) / NUM_OF_COLORS;
+    Pixel p(average,average,average);
+
 }
 
 void Pixel::emboss()

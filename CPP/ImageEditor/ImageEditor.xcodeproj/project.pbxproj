@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		75B35E5A1B35831500B15FF6 /* driver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 75B35E591B35831500B15FF6 /* driver.cpp */; };
 		75B35E621B35861E00B15FF6 /* Pixel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 75B35E611B35861E00B15FF6 /* Pixel.cpp */; };
+		75E73A111B36213F0044BBF7 /* ImageProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 75E73A0F1B36213F0044BBF7 /* ImageProcessor.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +29,22 @@
 		75B35E591B35831500B15FF6 /* driver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = driver.cpp; sourceTree = "<group>"; };
 		75B35E601B35835800B15FF6 /* Pixel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pixel.h; sourceTree = "<group>"; };
 		75B35E611B35861E00B15FF6 /* Pixel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pixel.cpp; sourceTree = "<group>"; };
+		75E73A0F1B36213F0044BBF7 /* ImageProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageProcessor.cpp; sourceTree = "<group>"; };
+		75E73A101B36213F0044BBF7 /* ImageProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageProcessor.h; sourceTree = "<group>"; };
+		75E73A141B363CB90044BBF7 /* audio.ppm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = audio.ppm; sourceTree = "<group>"; };
+		75E73A151B363CB90044BBF7 /* cs_logo.ppm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cs_logo.ppm; sourceTree = "<group>"; };
+		75E73A161B363CB90044BBF7 /* emboss_audio.ppm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = emboss_audio.ppm; sourceTree = "<group>"; };
+		75E73A171B363CB90044BBF7 /* emboss_cs_logo.ppm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = emboss_cs_logo.ppm; sourceTree = "<group>"; };
+		75E73A181B363CB90044BBF7 /* emboss_slctemple.ppm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = emboss_slctemple.ppm; sourceTree = "<group>"; };
+		75E73A191B363CB90044BBF7 /* grayscale_audio.ppm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = grayscale_audio.ppm; sourceTree = "<group>"; };
+		75E73A1A1B363CB90044BBF7 /* grayscale_slctemple.ppm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = grayscale_slctemple.ppm; sourceTree = "<group>"; };
+		75E73A1B1B363CB90044BBF7 /* invert_audio.ppm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = invert_audio.ppm; sourceTree = "<group>"; };
+		75E73A1C1B363CB90044BBF7 /* invert_slctemple.ppm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = invert_slctemple.ppm; sourceTree = "<group>"; };
+		75E73A1D1B363CB90044BBF7 /* motionblur_audio.ppm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = motionblur_audio.ppm; sourceTree = "<group>"; };
+		75E73A1E1B363CB90044BBF7 /* motionblur_cs_logo.ppm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = motionblur_cs_logo.ppm; sourceTree = "<group>"; };
+		75E73A1F1B363CB90044BBF7 /* motionblur_slctemple.ppm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = motionblur_slctemple.ppm; sourceTree = "<group>"; };
+		75E73A201B363CB90044BBF7 /* slctemple.ppm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = slctemple.ppm; sourceTree = "<group>"; };
+		75E73A211B36547E0044BBF7 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,11 +77,35 @@
 		75B35E581B35831500B15FF6 /* ImageEditor */ = {
 			isa = PBXGroup;
 			children = (
+				75E73A131B363CB90044BBF7 /* TestFiles */,
 				75B35E591B35831500B15FF6 /* driver.cpp */,
 				75B35E601B35835800B15FF6 /* Pixel.h */,
 				75B35E611B35861E00B15FF6 /* Pixel.cpp */,
+				75E73A0F1B36213F0044BBF7 /* ImageProcessor.cpp */,
+				75E73A101B36213F0044BBF7 /* ImageProcessor.h */,
+				75E73A211B36547E0044BBF7 /* .gitignore */,
 			);
 			path = ImageEditor;
+			sourceTree = "<group>";
+		};
+		75E73A131B363CB90044BBF7 /* TestFiles */ = {
+			isa = PBXGroup;
+			children = (
+				75E73A141B363CB90044BBF7 /* audio.ppm */,
+				75E73A151B363CB90044BBF7 /* cs_logo.ppm */,
+				75E73A161B363CB90044BBF7 /* emboss_audio.ppm */,
+				75E73A171B363CB90044BBF7 /* emboss_cs_logo.ppm */,
+				75E73A181B363CB90044BBF7 /* emboss_slctemple.ppm */,
+				75E73A191B363CB90044BBF7 /* grayscale_audio.ppm */,
+				75E73A1A1B363CB90044BBF7 /* grayscale_slctemple.ppm */,
+				75E73A1B1B363CB90044BBF7 /* invert_audio.ppm */,
+				75E73A1C1B363CB90044BBF7 /* invert_slctemple.ppm */,
+				75E73A1D1B363CB90044BBF7 /* motionblur_audio.ppm */,
+				75E73A1E1B363CB90044BBF7 /* motionblur_cs_logo.ppm */,
+				75E73A1F1B363CB90044BBF7 /* motionblur_slctemple.ppm */,
+				75E73A201B363CB90044BBF7 /* slctemple.ppm */,
+			);
+			path = TestFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -123,6 +164,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75E73A111B36213F0044BBF7 /* ImageProcessor.cpp in Sources */,
 				75B35E621B35861E00B15FF6 /* Pixel.cpp in Sources */,
 				75B35E5A1B35831500B15FF6 /* driver.cpp in Sources */,
 			);
@@ -241,6 +283,7 @@
 				75B35E5F1B35831500B15FF6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

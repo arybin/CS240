@@ -10,13 +10,18 @@
 #define ImageEditor_Pixel_h
 
 #include <string>
+#include <cmath>
+#include <vector>
 class Pixel
 {
 private:
+    int MAX_VALUE = 255;
+    int NUM_OF_COLORS = 3;
     int _x;
     int _y;
-    Pixel * _originalImage;
-    Pixel * _modifiedImage;
+    //two-d arrays
+    Pixel ** _originalImage;
+    Pixel ** _modifiedImage;
     int _red;
     int _green;
     int _blue;
@@ -33,11 +38,12 @@ public:
           std::string green,
           std::string blue,
           bool isEdge,
-          Pixel * originalImage,
-          Pixel * modifiedImage,
+          Pixel** originalImage,
+          Pixel** modifiedImage,
           int x,
           int y
           );
+    Pixel() {}
     void setMotionValue(int motionValue);
     int getRed();
     int getGreen();
@@ -49,7 +55,6 @@ public:
     std::string getSRed();
     std::string getSGreen();
     std::string getSBlue();
-    
 };
 
 #endif
