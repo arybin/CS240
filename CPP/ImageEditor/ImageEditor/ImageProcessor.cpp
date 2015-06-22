@@ -11,7 +11,6 @@
 #include <fstream>
 #include <regex>
 #include <sstream>
-#include <list>
 #include <vector>
 
 
@@ -33,42 +32,16 @@ void ImageProcessor::processContent()
     std::string height = "";
     int w = 0;
     int h = 0;
-    std::vector<std::string> data;
-    std::list<std::string> imageData;
+    std::vector<std::string> * data = new std::vector<std::string>();
     if(file)//if the file exists
     {
         while (getline(file, line))
         {
-            data.push_back(line);
-            /*
-            if(lineCount == DIMENSIONS)
-            {
-                std::string delimiter = " ";
-                int index = (int)line.find(delimiter);
-                width.append(line.substr(0,index));
-                height.append(line.substr(index+1,line.length()-1));
-                w = std::stoi(width);
-                _width = w;
-                h = std::stoi(height);
-                _height = h;
-                for(int i = 0; i < h; i++)
-                {
-                    std::vector<Pixel> row(w);
-                    originalImage.push_back(row);
-                    modifiedImage.push_back(row);
-                }
-                
-                
-            } else if(lineCount >= ROWS_TO_IGNORE) {
-                //add everything to the vector
-                imageData.push_back(line);
-            }
-            ++lineCount;
-             */
+            data->push_back(line);
         }
         
         std::string delimiter = " ";
-        line = data[DIMENSIONS];
+        line = data->at(DIMENSIONS);
         int index = (int)line.find(delimiter);
         width.append(line.substr(0,index));
         height.append(line.substr(index+1,line.length()-1));
@@ -84,13 +57,13 @@ void ImageProcessor::processContent()
         
         int horPosition = 0;
         int vertPosition = 0;
-        for (auto it = 4; it < data.size(); ++it)
+        for (auto it = 4; it < data->size(); ++it)
         {
-            std::string red = data[it];
+            std::string red = data->at(it);
             ++it;
-            std::string green = data[it];
+            std::string green = data->at(it);
             ++it;
-            std::string blue = data[it];
+            std::string blue = data->at(it);
             bool isEdge = horPosition == 0 ||
             vertPosition == 0 ||
             horPosition + 1 == w ||
@@ -107,6 +80,7 @@ void ImageProcessor::processContent()
             
         }
         file.close();
+        delete data;
     }
     else
     {
