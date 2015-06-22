@@ -11,6 +11,7 @@
 #include <fstream>
 #include <regex>
 #include <sstream>
+#include <list>
 #include <vector>
 
 
@@ -18,6 +19,9 @@ ImageProcessor::ImageProcessor(std::string filePath)
 {
     _filePath = filePath;
     _motionValue = 0;
+    std::string delimiter = "/";
+    int index = (int) _filePath.find(delimiter);
+    _fileName = _filePath.substr(index+1, _filePath.length()-1);
     
 }
 
@@ -27,14 +31,16 @@ void ImageProcessor::processContent()
     std::ifstream file(_filePath);
     std::string width = "";
     std::string height = "";
-    int w;
-    int h;
-    int lineCount(0);
-    std::vector<std::string> imageData;
+    int w = 0;
+    int h = 0;
+    std::vector<std::string> data;
+    std::list<std::string> imageData;
     if(file)//if the file exists
     {
         while (getline(file, line))
         {
+            data.push_back(line);
+            /*
             if(lineCount == DIMENSIONS)
             {
                 std::string delimiter = " ";
@@ -42,38 +48,65 @@ void ImageProcessor::processContent()
                 width.append(line.substr(0,index));
                 height.append(line.substr(index+1,line.length()-1));
                 w = std::stoi(width);
+                _width = w;
                 h = std::stoi(height);
-                imageData.resize(h*w);
-                _originalImage = new Pixel*[h];
-                _modifiedImage = new Pixel*[h];
-
-            } else if(lineCount > ROWS_TO_IGNORE) {
+                _height = h;
+                for(int i = 0; i < h; i++)
+                {
+                    std::vector<Pixel> row(w);
+                    originalImage.push_back(row);
+                    modifiedImage.push_back(row);
+                }
+                
+                
+            } else if(lineCount >= ROWS_TO_IGNORE) {
                 //add everything to the vector
                 imageData.push_back(line);
             }
             ++lineCount;
+             */
         }
+        
+        std::string delimiter = " ";
+        line = data[DIMENSIONS];
+        int index = (int)line.find(delimiter);
+        width.append(line.substr(0,index));
+        height.append(line.substr(index+1,line.length()-1));
+        w = std::stoi(width);
+        _width = w;
+        h = std::stoi(height);
+        _height = h;
+        for(int i = 0; i < h; i++)
+        {
+            std::vector<Pixel> row(w);
+            originalImage.push_back(row);
+        }
+        
         int horPosition = 0;
         int vertPosition = 0;
-        for (auto it = 0; it < imageData.size(); ++it) {
-            std::string red = imageData[it];
+        for (auto it = 4; it < data.size(); ++it)
+        {
+            std::string red = data[it];
             ++it;
-            std::string green = imageData[it];
+            std::string green = data[it];
             ++it;
-            std::string blue = imageData[it];
-            ++it;
+            std::string blue = data[it];
             bool isEdge = horPosition == 0 ||
             vertPosition == 0 ||
             horPosition + 1 == w ||
             vertPosition + 1 == h;
-            auto value = _originalImage[vertPosition];
-            if(!value) {
-                _originalImage[vertPosition] = new Pixel[w];
+            
+            Pixel p(red,green,blue,isEdge);
+            originalImage[vertPosition][horPosition] = p;
+            horPosition++;
+            if (horPosition % w == 0) {
+                vertPosition++;
+                horPosition = 0;
             }
-            //Pixel p(red,green,blue,isEdge);
             
             
         }
+        file.close();
     }
     else
     {
@@ -93,7 +126,43 @@ void ImageProcessor::motionblur()
 
 void ImageProcessor::invert()
 {
-    
+    std::string outfile;
+    outfile.append("TestFiles/");
+    outfile.append("invert_");
+    outfile.append(_fileName);
+    std::ofstream out(outfile, std::ofstream::trunc);
+    if(out)
+    {
+        out<<"P3\n";
+        out<<_width<<" "<<_height<<"\n";
+        out<<"255\n";
+        for (int i = 0; i < _height; i++)
+        {
+            std::vector<Pixel> row(_width);
+            for(int j = 0; j < _width; j++)
+            {
+                Pixel p = originalImage[i][j];
+                p.invert(row, j);
+                p = row[j];
+                out<<p.getSRed()<<"\n";
+                out<<p.getSGreen()<<"\n";
+                if(i+1 != _height)
+                {
+                    out<<p.getSBlue()<<"\n";
+                }
+                else
+                {
+                    out<<p.getSBlue();
+                }
+            }
+            modifiedImage.push_back(row);
+        }
+    }
+    else
+    {
+        std::cout<<"unable to create the file\n";
+    }
+    out.close();
 }
 
 void ImageProcessor::grayscale()

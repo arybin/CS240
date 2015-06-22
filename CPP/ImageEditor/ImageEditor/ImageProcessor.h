@@ -22,8 +22,8 @@ private:
     int _height;
     int _width;
     int _motionValue;
-    Pixel ** _originalImage;
-    Pixel ** _modifiedImage;
+    std::vector<std::vector<Pixel>> originalImage;
+    std::vector<std::vector<Pixel>> modifiedImage;
     std::string _filePath;
     std::string _fileName;
     //function pointers, need to figure out how to use those

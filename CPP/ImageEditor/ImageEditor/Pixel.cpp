@@ -13,26 +13,20 @@ Pixel::Pixel(int red, int green, int blue)
     _red = red;
     _blue = blue;
     _green = green;
+    setStringValues();
+    
 }
 
 Pixel::Pixel(std::string red,
              std::string green,
              std::string blue,
-             bool isEdge,
-             Pixel ** originalImage,
-             Pixel ** modifiedImage,
-             int x,
-             int y
+             bool isEdge
              )
 {
     _sRed = red;
     _sGreen = green;
     _sBlue = blue;
     _isEdge = isEdge;
-    _originalImage = originalImage;
-    _modifiedImage = modifiedImage;
-    _x = x;
-    _y = y;
     _red = std::stoi(_sRed);
     _green = std::stoi(_sGreen);
     _blue = std::stoi(_sBlue);
@@ -80,13 +74,13 @@ std::string Pixel::getSBlue()
     return _sBlue;
 }
 
-void Pixel::invert()
+void Pixel::invert(std::vector<Pixel> & modifiedImage, int x)
 {
     int red = std::abs((double)_red - (double)MAX_VALUE);
     int green = std::abs((double)_green - (double)MAX_VALUE);
     int blue = std::abs((double)_blue - (double)MAX_VALUE);
-    Pixel p(red,green,blue);// = new Pixel(red,green,blue);
-    _originalImage[_y][_x] = p;
+    Pixel p(red,green,blue);
+    modifiedImage[x] = p;
     
 }
 

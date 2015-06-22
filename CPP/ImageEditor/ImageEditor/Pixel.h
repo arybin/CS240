@@ -17,11 +17,6 @@ class Pixel
 private:
     int MAX_VALUE = 255;
     int NUM_OF_COLORS = 3;
-    int _x;
-    int _y;
-    //two-d arrays
-    Pixel ** _originalImage;
-    Pixel ** _modifiedImage;
     int _red;
     int _green;
     int _blue;
@@ -37,18 +32,14 @@ public:
     Pixel(std::string red,
           std::string green,
           std::string blue,
-          bool isEdge,
-          Pixel** originalImage,
-          Pixel** modifiedImage,
-          int x,
-          int y
+          bool isEdge
           );
     Pixel() {}
     void setMotionValue(int motionValue);
     int getRed();
     int getGreen();
     int getBlue();
-    void invert();
+    void invert(std::vector<Pixel> & modifiedImage, int x);
     void grayscale();
     void emboss();
     void motionblur();

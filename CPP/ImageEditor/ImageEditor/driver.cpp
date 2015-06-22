@@ -19,7 +19,7 @@ int main(int argc, const char * argv[]) {
     int motionValue = 20;
 
 
-    std::string fileName = "TestFiles/audio.ppm";
+    std::string fileName = "TestFiles/slctemple.ppm";
     std::string action = "invert";
     ImageProcessor iProcessor(fileName);
     iProcessor.processContent();
