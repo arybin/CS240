@@ -30,8 +30,7 @@ void ImageProcessor::processContent()
     std::ifstream file(_filePath);
     std::string width = "";
     std::string height = "";
-    int w = 0;
-    int h = 0;
+    
     std::vector<std::string> * data = new std::vector<std::string>();
     if(file)//if the file exists
     {
@@ -45,13 +44,11 @@ void ImageProcessor::processContent()
         int index = (int)line.find(delimiter);
         width.append(line.substr(0,index));
         height.append(line.substr(index+1,line.length()-1));
-        w = std::stoi(width);
-        _width = w;
-        h = std::stoi(height);
-        _height = h;
-        for(int i = 0; i < h; i++)
+        _width = std::stoi(width);
+        _height = std::stoi(height);
+        for(int i = 0; i < _height; i++)
         {
-            std::vector<Pixel> row(w);
+            std::vector<Pixel> row(_width);
             originalImage.push_back(row);
         }
         
@@ -66,13 +63,13 @@ void ImageProcessor::processContent()
             std::string blue = data->at(it);
             bool isEdge = horPosition == 0 ||
             vertPosition == 0 ||
-            horPosition + 1 == w ||
-            vertPosition + 1 == h;
+            horPosition + 1 == _width ||
+            vertPosition + 1 == _height;
             
             Pixel p(red,green,blue,isEdge);
             originalImage[vertPosition][horPosition] = p;
             horPosition++;
-            if (horPosition % w == 0) {
+            if (horPosition % _width == 0) {
                 vertPosition++;
                 horPosition = 0;
             }
