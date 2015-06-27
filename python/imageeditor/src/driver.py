@@ -10,13 +10,13 @@ IMG_DIR = os.path.join(BASE_DIR, '../img')
 def flipImg(img):
 	im = Image.open(os.path.join(IMG_DIR, img))
 	flip = im.rotate(180)
-	flip.save(os.path.join(IMG_DIR, 'flip.png'))
+	flip.save(os.path.join(IMG_DIR, 'flip.jpg'))
 	gray = im.convert('L')
-	gray.save(os.path.join(IMG_DIR, 'gray.png'))
+	gray.save(os.path.join(IMG_DIR, 'gray.jpg'))
 	blur = im.filter(ImageFilter.BLUR)
-	blur.save(os.path.join(IMG_DIR, 'blur.png'))
+	blur.save(os.path.join(IMG_DIR, 'blur.jpg'))
 
 
 
 #Image should be located in the img folder
-flipImg('mapplop.png')
+flipImg('elephant.jpg')
