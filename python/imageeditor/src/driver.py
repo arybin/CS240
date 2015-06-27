@@ -6,7 +6,7 @@ IMG_DIR = os.path.join(BASE_DIR, '../img')
 
 
 
-
+# Creates a flipped, grayscale, and blury version of the image
 def flipImg(img):
 	im = Image.open(os.path.join(IMG_DIR, img))
 	flip = im.rotate(180)
@@ -18,5 +18,5 @@ def flipImg(img):
 
 
 
-
+#Image should be located in the img folder
 flipImg('mapplop.png')
