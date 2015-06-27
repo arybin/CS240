@@ -19,4 +19,4 @@ def flipImg(img):
 
 
 #Image should be located in the img folder
-flipImg('elephant.jpg')
+flipImg('hellraisins.jpg')
