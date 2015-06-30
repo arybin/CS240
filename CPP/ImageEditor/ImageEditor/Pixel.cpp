@@ -124,6 +124,26 @@ void Pixel::emboss(std::vector<std::vector<Pixel>> & originalImage, std::vector<
 void Pixel::motionblur(std::vector<std::vector<Pixel>> & originalImage, std::vector<Pixel> & modifiedImage, int x, int y)
 {
     
+    int blurValue = _motionValue;
+    //how far are we moving in the row
+    int red  = 0;
+    int green = 0;
+    int blue = 0;
+    //this should be the number of cells to check, thus making values averages
+    if(blurValue + x >= modifiedImage.size()) {
+        blurValue = (int)modifiedImage.size() - x;
+    }
+    for(int i = x; i < blurValue + x - 1; i++) {
+        red += modifiedImage[i].getRed();
+        green += modifiedImage[i].getGreen();
+        blue += modifiedImage[i].getBlue();
+    }
+    red /= blurValue;
+    green /= blurValue;
+    blue /= blurValue;
+    Pixel p(red, green, blue);
+    modifiedImage[x] = p;
+
 }
 
 
