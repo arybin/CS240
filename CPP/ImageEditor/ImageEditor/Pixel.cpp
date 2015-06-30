@@ -84,19 +84,20 @@ void Pixel::invert(std::vector<Pixel> & modifiedImage, int x)
     
 }
 
-void Pixel::grayscale()
+void Pixel::grayscale(std::vector<Pixel> & modifiedImage, int x)
 {
     int average = (_red + _green + _blue) / NUM_OF_COLORS;
     Pixel p(average,average,average);
+    modifiedImage[x] = p;
 
 }
 
-void Pixel::emboss()
+void Pixel::emboss(std::vector<Pixel> & modifiedImage, int x)
 {
     
 }
 
-void Pixel::motionblur()
+void Pixel::motionblur(std::vector<Pixel> & modifiedImage, int x)
 {
     
 }

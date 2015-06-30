@@ -138,6 +138,44 @@ void ImageProcessor::invert()
 
 void ImageProcessor::grayscale()
 {
+    std::string outfile;
+    outfile.append("TestFiles/");
+    outfile.append("invert_");
+    outfile.append(_fileName);
+    std::ofstream out(outfile, std::ofstream::trunc);
+    if(out)
+    {
+        out<<"P3\n";
+        out<<_width<<" "<<_height<<"\n";
+        out<<"255\n";
+        for (int i = 0; i < _height; i++)
+        {
+            std::vector<Pixel> row(_width);
+            for(int j = 0; j < _width; j++)
+            {
+                Pixel p = originalImage[i][j];
+                p.grayscale(row, j);
+                p = row[j];
+                out<<p.getSRed()<<"\n";
+                out<<p.getSGreen()<<"\n";
+                if(i+1 != _height)
+                {
+                    out<<p.getSBlue()<<"\n";
+                }
+                else
+                {
+                    out<<p.getSBlue();
+                }
+            }
+            modifiedImage.push_back(row);
+        }
+    }
+    else
+    {
+        std::cout<<"unable to create the file\n";
+    }
+    out.close();
+
     
 }
 void ImageProcessor::emboss()

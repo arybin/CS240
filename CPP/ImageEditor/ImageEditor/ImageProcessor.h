@@ -19,6 +19,7 @@ class ImageProcessor
 private:
     int ROWS_TO_IGNORE = 4;
     int DIMENSIONS = 2;
+    int TOTAL_COLORS = 3;
     int _height;
     int _width;
     int _motionValue;

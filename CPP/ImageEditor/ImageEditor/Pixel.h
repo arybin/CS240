@@ -40,9 +40,9 @@ public:
     int getGreen();
     int getBlue();
     void invert(std::vector<Pixel> & modifiedImage, int x);
-    void grayscale();
-    void emboss();
-    void motionblur();
+    void grayscale(std::vector<Pixel> & modifiedImage, int x);
+    void emboss(std::vector<Pixel> & modifiedImage, int x);
+    void motionblur(std::vector<Pixel> & modifiedImage, int x);
     std::string getSRed();
     std::string getSGreen();
     std::string getSBlue();
