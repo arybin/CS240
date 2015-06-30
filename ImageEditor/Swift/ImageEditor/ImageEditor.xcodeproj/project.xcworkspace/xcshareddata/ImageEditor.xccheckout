@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>8DF01244-CD86-4AF5-9FD6-9D6F05F1E18E</string>
+	<key>IDESourceControlProjectName</key>
+	<string>project</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>2EE9FF967664F43355FA7110E84BC89F6F988528</key>
+		<string>github.com:arybin/CS240.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ImageEditor/Swift/ImageEditor/ImageEditor.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>2EE9FF967664F43355FA7110E84BC89F6F988528</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:arybin/CS240.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>2EE9FF967664F43355FA7110E84BC89F6F988528</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>2EE9FF967664F43355FA7110E84BC89F6F988528</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CS240</string>
+		</dict>
+	</array>
+</dict>
+</plist>
