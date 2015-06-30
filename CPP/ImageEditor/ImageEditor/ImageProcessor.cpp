@@ -90,9 +90,49 @@ void ImageProcessor::setMotionValue(int motionValue)
     _motionValue = motionValue;
 }
 
+//I REALLY HATE TO COPY AND PASTE CODE, BUT I REALLY NEED TO MOVE ON AT THIS POINT
+
 void ImageProcessor::motionblur()
 {
-    
+    std::string outfile;
+    outfile.append("TestFiles/");
+    outfile.append("motionblur_");
+    outfile.append(_fileName);
+    std::ofstream out(outfile, std::ofstream::trunc);
+    if(out)
+    {
+        out<<"P3\n";
+        out<<_width<<" "<<_height<<"\n";
+        out<<"255\n";
+        for (int i = 0; i < _height; i++)
+        {
+            std::vector<Pixel> row(_width);
+            for(int j = 0; j < _width; j++)
+            {
+                Pixel p = originalImage[i][j];
+                p.setMotionValue(_motionValue);
+                p.motionblur(originalImage, row, j, i);
+                p = row[j];
+                out<<p.getSRed()<<"\n";
+                out<<p.getSGreen()<<"\n";
+                if(i+1 != _height)
+                {
+                    out<<p.getSBlue()<<"\n";
+                }
+                else
+                {
+                    out<<p.getSBlue();
+                }
+            }
+            modifiedImage.push_back(row);
+        }
+    }
+    else
+    {
+        std::cout<<"unable to create the file\n";
+    }
+    out.close();
+
 }
 
 void ImageProcessor::invert()
@@ -140,7 +180,7 @@ void ImageProcessor::grayscale()
 {
     std::string outfile;
     outfile.append("TestFiles/");
-    outfile.append("invert_");
+    outfile.append("grayscale_");
     outfile.append(_fileName);
     std::ofstream out(outfile, std::ofstream::trunc);
     if(out)
@@ -180,6 +220,43 @@ void ImageProcessor::grayscale()
 }
 void ImageProcessor::emboss()
 {
-    
+    std::string outfile;
+    outfile.append("TestFiles/");
+    outfile.append("emboss_");
+    outfile.append(_fileName);
+    std::ofstream out(outfile, std::ofstream::trunc);
+    if(out)
+    {
+        out<<"P3\n";
+        out<<_width<<" "<<_height<<"\n";
+        out<<"255\n";
+        for (int i = 0; i < _height; i++)
+        {
+            std::vector<Pixel> row(_width);
+            for(int j = 0; j < _width; j++)
+            {
+                Pixel p = originalImage[i][j];
+                p.emboss(originalImage, row, j, i);
+                p = row[j];
+                out<<p.getSRed()<<"\n";
+                out<<p.getSGreen()<<"\n";
+                if(i+1 != _height)
+                {
+                    out<<p.getSBlue()<<"\n";
+                }
+                else
+                {
+                    out<<p.getSBlue();
+                }
+            }
+            modifiedImage.push_back(row);
+        }
+    }
+    else
+    {
+        std::cout<<"unable to create the file\n";
+    }
+    out.close();
+
 }
 

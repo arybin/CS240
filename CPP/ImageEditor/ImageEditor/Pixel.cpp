@@ -7,6 +7,8 @@
 //
 
 #include "Pixel.h"
+#include <stdlib.h>
+#include <algorithm>
 
 Pixel::Pixel(int red, int green, int blue)
 {
@@ -92,12 +94,34 @@ void Pixel::grayscale(std::vector<Pixel> & modifiedImage, int x)
 
 }
 
-void Pixel::emboss(std::vector<Pixel> & modifiedImage, int x)
+void Pixel::emboss(std::vector<std::vector<Pixel>> & originalImage, std::vector<Pixel> & modifiedImage, int x, int y)
 {
+    int embossValue = 0;
+    if ((x - 1) < 0 || (y - 1) < 0)
+    {
+        embossValue = 128;
+    }
+    else
+    {
+        int redDiff = abs(_red - originalImage[y - 1][x - 1].getRed());
+        int greenDiff = abs(_green - originalImage[y - 1][x - 1].getGreen());
+        int blueDiff = abs(_blue - originalImage[y - 1][x - 1].getBlue());
+        int maxDifference = std::max(redDiff, std::max(greenDiff, blueDiff));
+        embossValue = maxDifference;
+    }
     
+    embossValue += 128;
+    
+    if (embossValue < 0) {
+        embossValue = 0;
+    } else if (embossValue > 255) {
+        embossValue = 255;
+    }
+    Pixel p(embossValue, embossValue, embossValue);
+    modifiedImage[x] = p;
 }
 
-void Pixel::motionblur(std::vector<Pixel> & modifiedImage, int x)
+void Pixel::motionblur(std::vector<std::vector<Pixel>> & originalImage, std::vector<Pixel> & modifiedImage, int x, int y)
 {
     
 }

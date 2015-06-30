@@ -41,8 +41,8 @@ public:
     int getBlue();
     void invert(std::vector<Pixel> & modifiedImage, int x);
     void grayscale(std::vector<Pixel> & modifiedImage, int x);
-    void emboss(std::vector<Pixel> & modifiedImage, int x);
-    void motionblur(std::vector<Pixel> & modifiedImage, int x);
+    void emboss(std::vector<std::vector<Pixel>> & originalImage, std::vector<Pixel> & modifiedImage, int x, int y);
+    void motionblur(std::vector<std::vector<Pixel>> & originalImage, std::vector<Pixel> & modifiedImage, int x, int y);
     std::string getSRed();
     std::string getSGreen();
     std::string getSBlue();
