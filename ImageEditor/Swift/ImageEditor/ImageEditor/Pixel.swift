@@ -62,6 +62,18 @@ class Pixel {
         self.motionValue = motionValue
     }
     
+    internal func getRed() -> String {
+        return self.sRed
+    }
+    
+    func getGreen() -> String {
+        return self.sGreen
+    }
+    
+    func getBlue() -> String {
+        return self.sBlue
+    }
+    
     func invert() {
         var red = abs(self.red - self.MAX_VALUE)
         var green = abs(self.green - self.MAX_VALUE)
@@ -73,14 +85,48 @@ class Pixel {
     
     func grayscale() {
         var average = (self.red + self.blue + self.green) / self.TOTAL_COLORS
-        let pixel = Pixel(red: average, green: average, blue: average)
-        modifiedImage[self.y][self.x] = pixel
+        modifiedImage[self.y][self.x] = Pixel(red: average, green: average, blue: average)
     }
     
+    func emboss() {
+        var embossValue = 0
+        if (self.x - 1) < 0 && (self.y - 1) < 0 {
+            embossValue = 128
+        } else {
+            var pixel = self.originalImage[self.y - 1][self.x - 1]
+            var redDiff = abs(self.red - pixel.red)
+            var greenDiff = abs(self.green - pixel.green)
+            var blueDiff = abs(self.blue - pixel.blue)
+            var maxDifference = max(redDiff,max(greenDiff, blueDiff))
+            embossValue = maxDifference
+        }
+        embossValue += 128
+        if embossValue < 0 {
+            embossValue = 0
+        } else if embossValue > 255 {
+            embossValue = 255
+        }
+        modifiedImage[self.y][self.x] = Pixel(red: embossValue, green: embossValue, blue: embossValue)
+    }
     
-    
-    
-    
-    
-    
+    func motionBlur() {
+        var row = self.originalImage[self.y]
+        var blurValue = self.motionValue
+        var red = 0
+        var green = 0
+        var blue = 0
+        
+        if(blurValue + self.x) >= row.count {
+            blurValue = row.count - self.x
+        }
+        for var i = self.x; i < (blurValue + self.x - 1); i++ {
+            red += row[i].red
+            green += row[i].green
+            blue += row[i].blue
+        }
+        red /= blurValue
+        green /= blurValue
+        blue /= blurValue
+        self.modifiedImage[self.y][self.x] = Pixel(red: red, green: green, blue: blue)
+    }
 }
