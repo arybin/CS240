@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>8DF01244-CD86-4AF5-9FD6-9D6F05F1E18E</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>ImageEditor</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>2EE9FF967664F43355FA7110E84BC89F6F988528</key>
 		<string>github.com:arybin/CS240.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>ImageEditor/Swift/ImageEditor/ImageEditor.xcodeproj/project.xcworkspace</string>
+	<string>ImageEditor/Swift/ImageEditor/ImageEditor.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>2EE9FF967664F43355FA7110E84BC89F6F988528</key>
