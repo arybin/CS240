@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
@@ -25,10 +26,10 @@ public class ImageProcessor {
     private int motionValue;
 
     //man, Java 8 is cool
-    private Consumer<Pixel> invertAction = p -> p.invert();
-    private Consumer<Pixel> grayScaleAction = p -> p.grayScale();
-    private Consumer<Pixel> embossAction = p -> p.emboss();
-    private Consumer<Pixel> motionBlurAction = p -> p.motionBlur();
+    private Consumer<Pixel> invertAction = Pixel::invert;//p -> p.invert();
+    private Consumer<Pixel> grayScaleAction = Pixel::grayScale;//p -> p.grayScale();
+    private Consumer<Pixel> embossAction = Pixel::emboss; //p -> p.emboss();
+    private Consumer<Pixel> motionBlurAction = Pixel::motionBlur; //p -> p.motionBlur();
 
     public ImageProcessor(String filePath) {
         this.filePath = filePath;
@@ -44,34 +45,29 @@ public class ImageProcessor {
         try {
             Stream<String> lines = Files.lines(Paths.get(this.filePath))
                     .parallel();
-            String[] actualLines = lines
-                    .parallel()
-                    .toArray(size -> new String[size]);
-            String[] widthAndHeight = actualLines[WIDTH_AND_HEIGHT].split(" ");
-            this.width = Integer.valueOf(widthAndHeight[0]);
-            this.height = Integer.valueOf(widthAndHeight[1]);
-            String[] imageData = new String[actualLines.length - ROWS_TO_IGNORE];
-            //make a copy of the actual data that's needed
-            System.arraycopy(actualLines, ROWS_TO_IGNORE, imageData, 0, imageData.length);
-            populateImageMatrix(imageData);
+            populateImageMatrix(lines);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void populateImageMatrix(String[] imageData) {
+    private void populateImageMatrix(Stream<String> lines) {
+        Iterator<String> iterator = lines.iterator();
+        String fileType = iterator.next();
+        String comment = iterator.next();
+        String[] dimensions = iterator.next().split(" ");
+        String highestValue = iterator.next();
+        this.width = Integer.valueOf(dimensions[0]);
+        this.height = Integer.valueOf(dimensions[1]);
         originalImage = new Pixel[height][width];
         changedImage = new Pixel[height][width];
         int horizontalPosition = 0;
         int verticalPosition = 0;
-        int i = 0;
-        while (i < imageData.length) {
-            String red = imageData[i];
-            ++i;
-            String green = imageData[i];
-            ++i;
-            String blue = imageData[i];
-            ++i;
+
+        while(iterator.hasNext()) {
+            String red = iterator.next();
+            String green = iterator.next();
+            String blue = iterator.next();
             boolean isEdge =
                     horizontalPosition == 0 ||
                             verticalPosition == 0 ||
@@ -88,7 +84,6 @@ public class ImageProcessor {
             p.setMotionValue(motionValue);
             originalImage[verticalPosition][horizontalPosition] = p;
             horizontalPosition++;
-            //if horizontal is at the end of the line, move to the next vertical position, reset the value
             if ((horizontalPosition % width) == 0) {
                 verticalPosition++;
                 horizontalPosition = 0;
