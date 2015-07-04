@@ -1,5 +1,5 @@
 out/*
-.idea/*
+.idea/
 TestFiles/slctemple.ppm
 TestFiles/invert_audio.ppm
 TestFiles/invert_slctemple.ppm

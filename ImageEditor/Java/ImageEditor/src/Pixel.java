@@ -73,7 +73,6 @@ public class Pixel {
         int red = Math.abs(this.RED - MAX_VALUE);
         int green = Math.abs(this.GREEN - MAX_VALUE);
         int blue = Math.abs(this.BLUE - MAX_VALUE);
-        setStringValues();
         Pixel p = new Pixel(red, green, blue);
         this.changedImage[y][x] = p;
     }
@@ -89,7 +88,6 @@ public class Pixel {
         int red = average;
         int green = average;
         int blue = average;
-        setStringValues();
         Pixel p = new Pixel(red, green, blue);
         this.changedImage[y][x] = p;
     }

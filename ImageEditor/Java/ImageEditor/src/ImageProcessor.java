@@ -14,8 +14,6 @@ import java.util.stream.Stream;
 public class ImageProcessor {
     private static final int ROWS_TO_IGNORE = 4;
     private static final int WIDTH_AND_HEIGHT = 2;
-    private static final Pattern comment = Pattern.compile("#[^\\n]*\\n");
-    private static final Pattern number = Pattern.compile(" [01](\\d\\d?)? | 2[0-4]\\d | 25[0-5] | [3-9]\\d?");
 
     private String filePath;
     private String fileName;
@@ -105,9 +103,9 @@ public class ImageProcessor {
                 action.accept(p);
                 p = changedImage[i][j];
                 newContent.add(p.getsRed() + "\n");
-                newContent.add(p.getGreen() + "\n");
+                newContent.add(p.getsGreen() + "\n");
                 if ((i + 1) != originalImage.length) {
-                    newContent.add(p.getBlue() + "\n");
+                    newContent.add(p.getsBlue() + "\n");
                 } else {
                     newContent.add(p.getsBlue());
                 }
@@ -120,8 +118,6 @@ public class ImageProcessor {
         List<String> newContent = new ArrayList<>();
         applyAction(invertAction, newContent);
         writeNewContent(invertFileName, newContent);
-
-
     }
 
     private void writeNewContent(String newFileName, List<String> newContent) {
