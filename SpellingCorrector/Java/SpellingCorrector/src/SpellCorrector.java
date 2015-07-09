@@ -9,10 +9,10 @@ import java.util.stream.Stream;
  */
 public class SpellCorrector implements ISpellCorrector {
 
-    private ITrie root;
+    private ITrie trie;
 
     public SpellCorrector() {
-        root = new Trie();
+        trie = new Trie();
     }
     /**
      * Tells this <code>ISpellCorrector</code> to use the given file as its dictionary
@@ -30,7 +30,7 @@ public class SpellCorrector implements ISpellCorrector {
         Iterator<String> iterator = lines.iterator();
 
         while(iterator.hasNext()) {
-            root.add(iterator.next());
+            trie.add(iterator.next());
         }
 
     }
@@ -45,6 +45,6 @@ public class SpellCorrector implements ISpellCorrector {
      */
     @Override
     public String suggestSimilarWord(String inputWord) throws NoSimilarWordFoundException {
-        return null;
+        return trie.find(inputWord).toString();
     }
 }

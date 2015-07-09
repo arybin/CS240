@@ -2,15 +2,17 @@
  * Created by andrei on 7/3/15.
  */
 public class Trie implements ITrie {
+    private static final int CONVERTER = 97; //97 is a's int value in ascii
+    private static final int ALPHABET_SIZE = 26;
 
     private int wordCount;
     private int nodeCount;
-    private Node[] nodes;
+    private Node root;
 
     public Trie() {
         wordCount = 0;
-        nodeCount = 0;
-        nodes = new Node[26];
+        root = new Node();
+        nodeCount = 1;
     }
     /**
      * Adds the specified word to the trie (if necessary) and increments the word's frequency count
@@ -52,5 +54,29 @@ public class Trie implements ITrie {
     @Override
     public int getNodeCount() {
         return nodeCount;
+    }
+
+    public class Node implements INode {
+        private int value;
+        public Node[] children;
+
+        public Node() {
+            value = 0;
+            children = new Node[ALPHABET_SIZE];
+        }
+
+        public void increment() {
+            value++;
+        }
+
+        /**
+         * Returns the frequency count for the word represented by the node
+         *
+         * @return The frequency count for the word represented by the node
+         */
+        @Override
+        public int getValue() {
+            return value;
+        }
     }
 }
