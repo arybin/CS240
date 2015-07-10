@@ -21,7 +21,32 @@ public class Trie implements ITrie {
      */
     @Override
     public void add(String word) {
-
+        //go through the trie and add the word
+        Node[] children = root.children;
+        final int length = word.length();
+        for (int i = 0; i < word.length(); i++) {
+            char c = word.charAt(i);
+            //if a value for that character doesn't exist yet add it to the trie
+            final int position = c - CONVERTER;
+            Node node = children[position];
+            if(node == null) {
+                node = new Node();
+                nodeCount++;
+                //if this is the end of the word, then increase the word's count
+                if(i + 1 == length) {
+                    node.increment();
+                    wordCount++;
+                }
+                children[position] = node;
+                children = node.children;
+            } else { //the value is already there keep adding
+                if(i + 1 == length) {
+                    node.increment();
+                    wordCount++;
+                }
+                children = node.children;
+            }
+        }
     }
 
     /**
