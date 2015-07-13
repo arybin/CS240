@@ -22,9 +22,9 @@ public class Main {
 		ISpellCorrector corrector = new SpellCorrector();
 		
 		corrector.useDictionary(dictionaryFileName);
-		String suggestion = corrector.suggestSimilarWord(inputWord);
+		//String suggestion = corrector.suggestSimilarWord(inputWord);
 		
-		System.out.println("Suggestion is: " + suggestion);
+		//System.out.println("Suggestion is: " + suggestion);
 	}
 
 }
