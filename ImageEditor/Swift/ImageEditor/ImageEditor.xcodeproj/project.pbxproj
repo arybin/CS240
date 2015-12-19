@@ -10,6 +10,7 @@
 		7534AD6C1B422D2F006D32BB /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7534AD6B1B422D2F006D32BB /* main.swift */; };
 		75992E9F1B44BE870035A2B2 /* Pixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75992E9E1B44BE870035A2B2 /* Pixel.swift */; };
 		75992EA11B46256D0035A2B2 /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75992EA01B46256D0035A2B2 /* ImageProcessor.swift */; };
+		C50FC8AD1C261A9B006FD735 /* PixelArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50FC8AC1C261A9B006FD735 /* PixelArray.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,6 +30,7 @@
 		7534AD6B1B422D2F006D32BB /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		75992E9E1B44BE870035A2B2 /* Pixel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pixel.swift; sourceTree = "<group>"; };
 		75992EA01B46256D0035A2B2 /* ImageProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
+		C50FC8AC1C261A9B006FD735 /* PixelArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PixelArray.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				7534AD6B1B422D2F006D32BB /* main.swift */,
 				75992E9E1B44BE870035A2B2 /* Pixel.swift */,
 				75992EA01B46256D0035A2B2 /* ImageProcessor.swift */,
+				C50FC8AC1C261A9B006FD735 /* PixelArray.swift */,
 			);
 			path = ImageEditor;
 			sourceTree = "<group>";
@@ -126,6 +129,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C50FC8AD1C261A9B006FD735 /* PixelArray.swift in Sources */,
 				75992E9F1B44BE870035A2B2 /* Pixel.swift in Sources */,
 				75992EA11B46256D0035A2B2 /* ImageProcessor.swift in Sources */,
 				7534AD6C1B422D2F006D32BB /* main.swift in Sources */,

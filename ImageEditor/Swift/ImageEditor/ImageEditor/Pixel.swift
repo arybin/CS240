@@ -19,23 +19,19 @@ class Pixel {
     private var sRed: String = ""
     private var sGreen: String = ""
     private var sBlue: String = ""
-    private var originalImage = Array<Array<Pixel>>()
-    private var modifiedImage = Array<Array<Pixel>>()
+    private var originalImage:PixelArray
+    private var modifiedImage:PixelArray
     private var x:Int = 0
     private var y:Int = 0
     private var motionValue:Int = 0
     
-    init(red:Int, green:Int, blue:Int){
-        self.red = red
-        self.green = green
-        self.blue = blue
-    }
+    
     
     init(red:String,
         green:String,
         blue:String,
-        inout originalImage:Array<Array<Pixel>>,
-        inout modifiedImage:Array<Array<Pixel>>,
+        originalImage:PixelArray,
+        modifiedImage:PixelArray,
         x:Int,
         y:Int,
         isEdge:Bool
@@ -78,14 +74,15 @@ class Pixel {
         let red = abs(self.red - self.MAX_VALUE)
         let green = abs(self.green - self.MAX_VALUE)
         let blue = abs(self.blue - self.MAX_VALUE)
-        let pixel = Pixel(red: red, green: green, blue: blue)
-        modifiedImage[self.y][self.x] = pixel
+        let pixel = Pixel(red: String(red), green: String(green), blue: String(blue), originalImage: self.originalImage, modifiedImage: self.modifiedImage, x: self.x, y: self.y, isEdge: self.isEdge)
+        modifiedImage.setValue(pixel, x: self.x, y: self.y)// [self.y][self.x] = pixel
         
     }
     
     func grayscale() {
         let average = (self.red + self.blue + self.green) / self.TOTAL_COLORS
-        modifiedImage[self.y][self.x] = Pixel(red: average, green: average, blue: average)
+        let pixel = Pixel(red: String(average), green: String(average), blue: String(average), originalImage: self.originalImage, modifiedImage: self.modifiedImage, x: self.x, y: self.y, isEdge: self.isEdge)
+        modifiedImage.setValue(pixel, x: self.x, y: self.y)
     }
     
     func emboss() {
@@ -93,7 +90,7 @@ class Pixel {
         if (self.x - 1) < 0 && (self.y - 1) < 0 {
             embossValue = 128
         } else {
-            let pixel = self.originalImage[self.y - 1][self.x - 1]
+            let pixel = self.originalImage.getValue(self.x-1, y: self.y-1)// [self.y - 1][self.x - 1]
             let redDiff = abs(self.red - pixel.red)
             let greenDiff = abs(self.green - pixel.green)
             let blueDiff = abs(self.blue - pixel.blue)
@@ -106,11 +103,12 @@ class Pixel {
         } else if embossValue > 255 {
             embossValue = 255
         }
-        modifiedImage[self.y][self.x] = Pixel(red: embossValue, green: embossValue, blue: embossValue)
+        let pixel = Pixel(red: String(embossValue), green: String(embossValue), blue: String(embossValue), originalImage: self.originalImage, modifiedImage: self.modifiedImage, x: self.x, y: self.y, isEdge: self.isEdge)
+        modifiedImage.setValue(pixel, x: self.x, y: self.y)
     }
     
     func motionBlur() {
-        var row = self.originalImage[self.y]
+        var row = self.originalImage.getRow(self.y)
         var blurValue = self.motionValue
         var red = 0
         var green = 0
@@ -127,6 +125,8 @@ class Pixel {
         red /= blurValue
         green /= blurValue
         blue /= blurValue
-        self.modifiedImage[self.y][self.x] = Pixel(red: red, green: green, blue: blue)
+        let pixel = Pixel(red: String(red), green: String(green), blue: String(blue), originalImage: self.originalImage, modifiedImage: self.modifiedImage, x: self.x, y: self.y, isEdge: self.isEdge)
+
+        self.modifiedImage.setValue(pixel, x: self.x, y: self.y)
     }
 }

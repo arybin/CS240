@@ -22,7 +22,7 @@ class ImageProccesor {
     }
     
     //read from the file or stream
-    func readStream() {
+    private func readStream() {
         if let data = NSData(contentsOfFile: path){
             //read into an NSString then downcast to a Swift String object
             let input = NSString(data: data, encoding: NSUTF8StringEncoding) as! String
@@ -41,16 +41,14 @@ class ImageProccesor {
     func processStream() {
         //two-d array of pixels
         var position = 0
-        var originalImage = [[Pixel]]()
-        var changedImage = [[Pixel]]()
         let fileType = self.lines[position++]
-        let _ = self.lines[position++]
+        let comment = self.lines[position++]
         let dimensions:[String] = self.lines[position++].componentsSeparatedByString(" ")
         let width = Int(dimensions[0])!
         let height = Int(dimensions[1])!
+        var originalImage = PixelArray(width: width, height: height)
+        var changedImage = PixelArray(width: width, height: height)
         let highestValue = self.lines[position++]
-        print(fileType)
-        print("\(dimensions) \(highestValue)")
         var horizontalPosition = 0
         var verticalPosition = 0
         var row = [Pixel]()
@@ -62,7 +60,7 @@ class ImageProccesor {
                 verticalPosition == 0 ||
                 horizontalPosition + 1 == width ||
                 verticalPosition + 1 == height
-            let p = Pixel(red: red, green: green, blue: blue, originalImage: &originalImage , modifiedImage: &changedImage,
+            let p = Pixel(red: red, green: green, blue: blue, originalImage: originalImage , modifiedImage: changedImage,
                 x: horizontalPosition, y: verticalPosition, isEdge: isEdge)
             p.setMotionValue(self.motionValue)
             row.append(p)
@@ -70,7 +68,7 @@ class ImageProccesor {
             if horizontalPosition % width == 0 {
                 verticalPosition++
                 horizontalPosition = 0
-                originalImage.append(row)
+                originalImage.appendRow(row)
                 row = [Pixel]()
             }
             
@@ -80,6 +78,10 @@ class ImageProccesor {
     }
     
     private func applyAction() {
+        
+    }
+    
+    func grayScale() {
         
     }
 }
