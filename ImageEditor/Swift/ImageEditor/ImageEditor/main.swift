@@ -7,8 +7,8 @@
 //
 
 import Foundation
+let path = "/Users/andreirybin/Projects/CS240/ImageEditor/Java/ImageEditor/TestFiles/cs_logo.ppm"
+var pixel = ImageProccesor(path: path)
 
-
-println("Hello, World!")
 
 

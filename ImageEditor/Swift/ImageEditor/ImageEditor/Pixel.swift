@@ -52,9 +52,9 @@ class Pixel {
     }
     
     private func setIntValues() {
-        self.red = self.sRed.toInt()!
-        self.green = self.sGreen.toInt()!
-        self.blue = self.sBlue.toInt()!
+        self.red = Int(self.sRed)!
+        self.green = Int(self.sGreen)!
+        self.blue = Int(self.sBlue)!
         
     }
     
@@ -75,16 +75,16 @@ class Pixel {
     }
     
     func invert() {
-        var red = abs(self.red - self.MAX_VALUE)
-        var green = abs(self.green - self.MAX_VALUE)
-        var blue = abs(self.blue - self.MAX_VALUE)
+        let red = abs(self.red - self.MAX_VALUE)
+        let green = abs(self.green - self.MAX_VALUE)
+        let blue = abs(self.blue - self.MAX_VALUE)
         let pixel = Pixel(red: red, green: green, blue: blue)
         modifiedImage[self.y][self.x] = pixel
         
     }
     
     func grayscale() {
-        var average = (self.red + self.blue + self.green) / self.TOTAL_COLORS
+        let average = (self.red + self.blue + self.green) / self.TOTAL_COLORS
         modifiedImage[self.y][self.x] = Pixel(red: average, green: average, blue: average)
     }
     
@@ -93,11 +93,11 @@ class Pixel {
         if (self.x - 1) < 0 && (self.y - 1) < 0 {
             embossValue = 128
         } else {
-            var pixel = self.originalImage[self.y - 1][self.x - 1]
-            var redDiff = abs(self.red - pixel.red)
-            var greenDiff = abs(self.green - pixel.green)
-            var blueDiff = abs(self.blue - pixel.blue)
-            var maxDifference = max(redDiff,max(greenDiff, blueDiff))
+            let pixel = self.originalImage[self.y - 1][self.x - 1]
+            let redDiff = abs(self.red - pixel.red)
+            let greenDiff = abs(self.green - pixel.green)
+            let blueDiff = abs(self.blue - pixel.blue)
+            let maxDifference = max(redDiff,max(greenDiff, blueDiff))
             embossValue = maxDifference
         }
         embossValue += 128
