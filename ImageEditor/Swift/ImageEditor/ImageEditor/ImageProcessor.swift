@@ -75,7 +75,7 @@ class ImageProccesor {
             }
             
         }
-        print("done")
+        print("done working")
         
     }
     
