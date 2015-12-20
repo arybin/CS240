@@ -38,17 +38,17 @@ class ImageProccesor {
     }
     
     //proccess into a data structure
-    func processStream() {
+    private func processStream() {
         //two-d array of pixels
         var position = 0
-        let fileType = self.lines[position++]
-        let comment = self.lines[position++]
+        let _ = self.lines[position++] //file type
+        let _ = self.lines[position++] //comment
         let dimensions:[String] = self.lines[position++].componentsSeparatedByString(" ")
         let width = Int(dimensions[0])!
         let height = Int(dimensions[1])!
-        var originalImage = PixelArray(width: width, height: height)
-        var changedImage = PixelArray(width: width, height: height)
-        let highestValue = self.lines[position++]
+        let originalImage = PixelArray(width: width, height: height)
+        let changedImage = PixelArray(width: width, height: height)
+        let _ = self.lines[position++] //highest value
         var horizontalPosition = 0
         var verticalPosition = 0
         var row = [Pixel]()
@@ -78,6 +78,26 @@ class ImageProccesor {
     }
     
     private func applyAction() {
+        
+    }
+    
+    func writeResultsToFile(actionName: String) {
+        let parts = self.path.componentsSeparatedByString("/")
+        let fileNameParts = parts[parts.count-1].componentsSeparatedByString(".")
+        var finalPath = ""
+        for i in 0...parts.count-2 { //forgot that this was inclusive
+            finalPath += (parts[i] + "/")
+        }
+        finalPath += fileNameParts[0] //this is the name
+        finalPath += "_" + actionName
+        finalPath += "." + fileNameParts[1]
+        let text = "trying to see if this works"
+        print(finalPath)
+        do {
+            try text.writeToFile(finalPath, atomically: true, encoding: NSUTF8StringEncoding)
+        } catch {
+            print("error thrown when trying to write to file")
+        }
         
     }
     
