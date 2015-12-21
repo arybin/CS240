@@ -13,11 +13,22 @@ class ImageProccesor {
     private var path:String
     private var lines:[String]
     private var motionValue:Int
+    private var modifiedImage:PixelArray
+    private var originalImage:PixelArray
+    
+    enum Action {
+        case GRAYSCALE
+        case EMBOSS
+        case MOTIONBLUR
+        case INVERT
+    }
     
     init (path:String) {
         self.path = path
         self.lines = []
         self.motionValue = 0
+        modifiedImage = PixelArray(width: 0, height: 0)
+        originalImage = PixelArray(width: 0, height: 0)
         readStream()
     }
     
@@ -46,8 +57,8 @@ class ImageProccesor {
         let dimensions:[String] = self.lines[position++].componentsSeparatedByString(" ")
         let width = Int(dimensions[0])!
         let height = Int(dimensions[1])!
-        let originalImage = PixelArray(width: width, height: height)
-        let changedImage = PixelArray(width: width, height: height)
+        originalImage = PixelArray(width: width, height: height)
+        modifiedImage = PixelArray(width: width, height: height)
         let _ = self.lines[position++] //highest value
         var horizontalPosition = 0
         var verticalPosition = 0
@@ -60,7 +71,7 @@ class ImageProccesor {
                 verticalPosition == 0 ||
                 horizontalPosition + 1 == width ||
                 verticalPosition + 1 == height
-            let p = Pixel(red: red, green: green, blue: blue, originalImage: originalImage , modifiedImage: changedImage,
+            let p = Pixel(red: red, green: green, blue: blue, originalImage: originalImage , modifiedImage: modifiedImage,
                 x: horizontalPosition, y: verticalPosition, isEdge: isEdge)
             p.setMotionValue(self.motionValue)
             row.append(p)
@@ -69,6 +80,7 @@ class ImageProccesor {
                 verticalPosition++
                 horizontalPosition = 0
                 originalImage.appendRow(row)
+                modifiedImage.appendRow(row)
                 row = [Pixel]()
             }
             
@@ -77,11 +89,36 @@ class ImageProccesor {
         
     }
     
-    private func applyAction() {
+    func applyAction(defaultAction: Action) {
+        switch defaultAction{
+            case .GRAYSCALE: grayScale()
+            case .EMBOSS: emboss()
+            case .INVERT: invert()
+            case .MOTIONBLUR: motionBlur()
+        }
+        
+        var output:String = ""
+
+        output += "P3\n"
+        output += "\(self.modifiedImage.getWidth()) \(self.modifiedImage.getHeight())\n"
+        output += "255\n"
+        for var y = 0; y < self.modifiedImage.getCount(); y++ {
+            for var x = 0; x < self.modifiedImage.getRow(y).count; x++ {
+                let p = self.modifiedImage.getValue(x, y: y)
+                output += "\(p.getRed())\n"
+                output += "\(p.getGreen())\n"
+                if y + 1 != self.modifiedImage.getCount() {
+                    output += "\(p.getBlue())\n"
+                } else {
+                    output += "\(p.getBlue())"
+                }
+            }
+        }
+        writeResultsToFile(String(defaultAction), output: output)
         
     }
     
-    func writeResultsToFile(actionName: String) {
+    private func writeResultsToFile(actionName: String, output: String) {
         let parts = self.path.componentsSeparatedByString("/")
         let fileNameParts = parts[parts.count-1].componentsSeparatedByString(".")
         var finalPath = ""
@@ -91,17 +128,27 @@ class ImageProccesor {
         finalPath += fileNameParts[0] //this is the name
         finalPath += "_" + actionName
         finalPath += "." + fileNameParts[1]
-        let text = "trying to see if this works"
         print(finalPath)
         do {
-            try text.writeToFile(finalPath, atomically: true, encoding: NSUTF8StringEncoding)
+            try output.writeToFile(finalPath, atomically: true, encoding: NSUTF8StringEncoding)
         } catch {
             print("error thrown when trying to write to file")
         }
         
     }
     
+    func emboss() {}
+    
+    func motionBlur() {}
+    
+    func invert() {}
+    
     func grayScale() {
+        for var y = 0; y < originalImage.getCount(); y++ {
+            for var x = 0; x < originalImage.getRow(y).count; x++ {
+                originalImage.getValue(x, y: y).grayscale()
+            }
+        }
         
     }
 }

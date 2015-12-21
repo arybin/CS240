@@ -21,6 +21,14 @@ class PixelArray {
         array.removeAll()
     }
     
+    func getWidth() -> Int {
+        return self.width
+    }
+    
+    func getHeight() -> Int {
+        return self.height
+    }
+    
     func appendRow(pixel: [Pixel]) {
         self.array.append(pixel)
     }
@@ -30,12 +38,14 @@ class PixelArray {
     }
     
     func setValue(pixel: Pixel, x: Int, y: Int) {
-        self.array[y][x] = pixel
+        self.array[y].insert(pixel, atIndex: x)
     }
     
     func getRow(y:Int) ->[Pixel] {
         return self.array[y]
     }
     
-    
+    func getCount() -> Int {
+        return self.array.count
+    }
 }

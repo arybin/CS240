@@ -70,6 +70,7 @@ class Pixel {
         return self.sBlue
     }
     
+    
     func invert() {
         let red = abs(self.red - self.MAX_VALUE)
         let green = abs(self.green - self.MAX_VALUE)
@@ -82,7 +83,7 @@ class Pixel {
     func grayscale() {
         let average = (self.red + self.blue + self.green) / self.TOTAL_COLORS
         let pixel = Pixel(red: String(average), green: String(average), blue: String(average), originalImage: self.originalImage, modifiedImage: self.modifiedImage, x: self.x, y: self.y, isEdge: self.isEdge)
-        modifiedImage.setValue(pixel, x: self.x, y: self.y)
+            modifiedImage.setValue(pixel, x: self.x, y: self.y)
     }
     
     func emboss() {
@@ -90,7 +91,7 @@ class Pixel {
         if (self.x - 1) < 0 && (self.y - 1) < 0 {
             embossValue = 128
         } else {
-            let pixel = self.originalImage.getValue(self.x-1, y: self.y-1)// [self.y - 1][self.x - 1]
+            let pixel = self.originalImage.getValue(self.x-1, y: self.y-1)
             let redDiff = abs(self.red - pixel.red)
             let greenDiff = abs(self.green - pixel.green)
             let blueDiff = abs(self.blue - pixel.blue)
@@ -126,7 +127,6 @@ class Pixel {
         green /= blurValue
         blue /= blurValue
         let pixel = Pixel(red: String(red), green: String(green), blue: String(blue), originalImage: self.originalImage, modifiedImage: self.modifiedImage, x: self.x, y: self.y, isEdge: self.isEdge)
-
         self.modifiedImage.setValue(pixel, x: self.x, y: self.y)
     }
 }
