@@ -71,8 +71,7 @@ class ImageProccesor {
                 verticalPosition == 0 ||
                 horizontalPosition + 1 == width ||
                 verticalPosition + 1 == height
-            let p = Pixel(red: red, green: green, blue: blue, originalImage: originalImage , modifiedImage: modifiedImage,
-                x: horizontalPosition, y: verticalPosition, isEdge: isEdge)
+            let p = Pixel(red: red, green: green, blue: blue, x: horizontalPosition, y: verticalPosition, isEdge: isEdge)
             p.setMotionValue(self.motionValue)
             row.append(p)
             horizontalPosition++
@@ -146,7 +145,7 @@ class ImageProccesor {
     func grayScale() {
         for var y = 0; y < originalImage.getCount(); y++ {
             for var x = 0; x < originalImage.getRow(y).count; x++ {
-                originalImage.getValue(x, y: y).grayscale()
+                modifiedImage.setValue(originalImage.getValue(x, y: y).grayscale(), x: x, y: y)
             }
         }
         
