@@ -79,7 +79,6 @@ class ImageProccesor {
                 verticalPosition++
                 horizontalPosition = 0
                 originalImage.appendRow(row)
-                modifiedImage.appendRow(row)
                 row = [Pixel]()
             }
             
@@ -144,10 +143,12 @@ class ImageProccesor {
     
     func grayScale() {
         for var y = 0; y < originalImage.getCount(); y++ {
+            var row:[Pixel] = []
             for var x = 0; x < originalImage.getRow(y).count; x++ {
-                modifiedImage.setValue(originalImage.getValue(x, y: y).grayscale(), x: x, y: y)
+                let p = originalImage.getValue(x, y: y).grayscale()
+                row.append(p)
             }
+            modifiedImage.appendRow(row)
         }
-        
     }
 }
