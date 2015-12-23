@@ -83,7 +83,11 @@ class ImageProccesor {
             }
             
         }
-        print("done working")
+        print("done processing stream")
+        
+    }
+    
+    func performOperation(operation:Pixel -> Pixel) {
         
     }
     
@@ -126,20 +130,50 @@ class ImageProccesor {
         finalPath += fileNameParts[0] //this is the name
         finalPath += "_" + actionName
         finalPath += "." + fileNameParts[1]
-        print(finalPath)
         do {
             try output.writeToFile(finalPath, atomically: true, encoding: NSUTF8StringEncoding)
         } catch {
             print("error thrown when trying to write to file")
         }
+        print("done printing to file")
         
     }
     
-    func emboss() {}
+    func emboss() {
+        for var y = 0; y < originalImage.getCount(); y++ {
+            var row:[Pixel] = []
+            for var x = 0; x < originalImage.getRow(y).count; x++ {
+                let p = originalImage.getValue(x, y: y).emboss(originalImage)
+                row.append(p)
+            }
+            modifiedImage.appendRow(row)
+        }
+
+    }
     
-    func motionBlur() {}
+    func motionBlur() {
+        for var y = 0; y < originalImage.getCount(); y++ {
+            var row:[Pixel] = []
+            for var x = 0; x < originalImage.getRow(y).count; x++ {
+                let p = originalImage.getValue(x, y: y).motionBlur(originalImage)
+                row.append(p)
+            }
+            modifiedImage.appendRow(row)
+        }
+
+    }
     
-    func invert() {}
+    func invert() {
+        for var y = 0; y < originalImage.getCount(); y++ {
+            var row:[Pixel] = []
+            for var x = 0; x < originalImage.getRow(y).count; x++ {
+                let p = originalImage.getValue(x, y: y).invert()
+                row.append(p)
+            }
+            modifiedImage.appendRow(row)
+        }
+
+    }
     
     func grayScale() {
         for var y = 0; y < originalImage.getCount(); y++ {

@@ -82,7 +82,7 @@ class Pixel {
     
     func emboss(originalImage: PixelArray) ->Pixel {
         var embossValue = 0
-        if (self.x - 1) < 0 && (self.y - 1) < 0 {
+        if (self.x - 1) < 0 || (self.y - 1) < 0 {
             embossValue = 128
         } else {
             let pixel = originalImage.getValue(self.x-1, y: self.y-1)
